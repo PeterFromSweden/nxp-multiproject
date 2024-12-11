@@ -1,11 +1,8 @@
 # Define the first application
-set(TARGET_NAME app1)
-add_executable(${TARGET_NAME} main.c)
-# Link the NXP SDK components (adjust as necessary for your dependencies)
-target_link_libraries(${TARGET_NAME} PRIVATE
-${MCUX_SDK_PROJECT_NAME}.board
-${MCUX_SDK_PROJECT_NAME}.drivers
-${MCUX_SDK_PROJECT_NAME}.utilities
-)
-# Specify any additional compile definitions or flags for app1
-target_compile_definitions(${TARGET_NAME} PRIVATE APP1_BUILD)
+set(MCUX_SDK_PROJECT_NAME app1)
+include(config.cmake)
+set(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
+include(flags.cmake)
+add_executable(${MCUX_SDK_PROJECT_NAME} main.c pin_mux.c clock_config.c board.c)
+# Include NXP MCUXpresso SDK
+include(${SdkRootDirPath}/devices/MCXN947/all_lib_device.cmake)
